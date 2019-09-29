@@ -10,13 +10,17 @@ import { Weather } from './weather'
 })
 export class WeatherService {
 
-  baseURL:string = "https://api.openweathermap.org/data/2.5/weather?q="
+  baseURL:string = "https://api.openweathermap.org/data/2.5/weather?"
   apiKey: string = "807ced8e3aa14c64ae44caaaf4291b3d";
 
   constructor(private http:HttpClient) { }
 
   public getWeather(city:string): Observable<Weather[]> {
-    return this.http.get<Weather[]>(this.baseURL+city+"&appid="+this.apiKey)
+    return this.http.get<Weather[]>(this.baseURL+"q="+city+"&appid="+this.apiKey)
+  }
+
+  public getMyWeather(lat,lon): Observable<Weather[]> {
+    return this.http.get<Weather[]>(this.baseURL+"lat="+lat+"&lon="+lon+"&appid="+this.apiKey)
   }
 
 }
