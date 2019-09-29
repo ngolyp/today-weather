@@ -1,0 +1,8 @@
+<h1>Testing</h1>
+<input type='text' [(ngModel)]="city">
+<button (click)='getWeather()'>Click Me</button>
+<p>City: {{weather.name}}</p>
+<p>Country: {{weather.sys.country}}</p>
+<p>Temperature: {{weather.main.temp}}</p>
+<p>Description: {{weather.weather[0].main}}</p>
+<p>Detail(s): {{weather.weather[0].description}}</p>
