@@ -12,38 +12,64 @@ import { Weather } from '../weather'
 })
 export class TodayComponent implements OnInit {
 
-  city:string='';
-  weather: Weather[];
+  city: string = '';
+  weather;
   lat;
   lon;
+  icon;
 
   errorMessage;
 
 
-  constructor(private weatherService:WeatherService) { }
+  constructor(private weatherService: WeatherService) { }
 
   public getWeather() {
-    this.errorMessage='';
+    this.errorMessage = '';
     this.weatherService.getWeather(this.city)
-    .subscribe((response) => {this.weather=response},
-     (error) => {this.errorMessage=error; console.log(this.errorMessage); this.city=""},
-     () => {this.city=''}
-    )
+      .subscribe((response) => {
+        this.weather = response
+        console.log(this.weather.main.temp)
+        this.weather.main.temp = Math.round(this.weather.main.temp - 273);
+        console.log(this.weather.main.temp)
+        let iconId = this.weather.weather[0].icon
+        console.log(iconId)
+        this.icon = this.getIcon(iconId);
+        console.log(this.icon)
+      },
+        (error) => { 
+          this.errorMessage = error;
+           console.log(this.errorMessage); 
+           this.city = "" 
+          },
+        () => { 
+          this.city = ''
+         }
+      )
 
   }
 
   public getMyWeather() {
-    if('geolocation' in navigator) {
-      navigator.geolocation.watchPosition((success)=>{
-        this.lat=success.coords.latitude;
-        this.lon=success.coords.longitude;
+    if ('geolocation' in navigator) {
+      navigator.geolocation.watchPosition((success) => {
+        this.lat = success.coords.latitude;
+        this.lon = success.coords.longitude;
 
-        this.weatherService.getMyWeather(this.lat,this.lon)
-        .subscribe((response) => {this.weather=response},
-        (error) => {this.errorMessage=error; console.log(this.errorMessage)}
-        )
+        this.weatherService.getMyWeather(this.lat, this.lon)
+          .subscribe((response) => { 
+            this.weather = response 
+            console.log(this.weather.main.temp)
+            this.weather.main.temp = Math.round(this.weather.main.temp - 273);
+            console.log(this.weather.main.temp)
+          },
+            (error) => { this.errorMessage = error; console.log(this.errorMessage) }
+          )
       })
     }
+  }
+
+  public getIcon(id) {
+    let iconUrl = 'http://openweathermap.org/img/wn/' + id + '@2x.png'
+    return iconUrl;
   }
 
   ngOnInit() {
