@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { WeatherService } from '../weather.service';
 
 import { Weather } from '../weather'
@@ -12,16 +13,25 @@ import { Weather } from '../weather'
 })
 export class TodayComponent implements OnInit {
 
+
+
   city: string = '';
   weather;
   lat;
   lon;
   icon;
+  show: boolean = false;
 
   errorMessage;
 
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService, private _snackBar: MatSnackBar) { }
+
+  public openSnackBar() {
+    this._snackBar.open("City not found!", "close", {
+      duration: 3000,
+    });
+  }
 
   public getWeather() {
     this.errorMessage = '';
@@ -35,10 +45,12 @@ export class TodayComponent implements OnInit {
         console.log(iconId)
         this.icon = this.getIcon(iconId);
         console.log(this.icon)
+        this.show = true;
       },
         (error) => { 
           this.errorMessage = error;
-           console.log(this.errorMessage); 
+           console.log(this.errorMessage);
+           this.openSnackBar() 
            this.city = "" 
           },
         () => { 
@@ -47,6 +59,7 @@ export class TodayComponent implements OnInit {
       )
 
   }
+
 
   public getMyWeather() {
     if ('geolocation' in navigator) {
@@ -60,11 +73,20 @@ export class TodayComponent implements OnInit {
             console.log(this.weather.main.temp)
             this.weather.main.temp = Math.round(this.weather.main.temp - 273);
             console.log(this.weather.main.temp)
+            let iconId = this.weather.weather[0].icon
+            console.log(iconId)
+            this.icon = this.getIcon(iconId);
+            console.log(this.icon)
+            this.show = true;
           },
             (error) => { this.errorMessage = error; console.log(this.errorMessage) }
           )
       })
     }
+  }
+
+  public searchAgain() {
+    this.show = !this.show;
   }
 
   public getIcon(id) {

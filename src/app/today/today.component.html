@@ -1,12 +1,50 @@
-<h1>My Local Weather App</h1>
-<button (click)="getMyWeather()">Get My Local Weather</button>
-<br>
-<br>
-<input type='text' [(ngModel)]="city">
-<button (click)='getWeather()'>Search Weather</button>
-<br>
-<img src='{{icon}}' alt="testing">
-<p>City: {{weather.name}}</p>
-<p>Country: {{weather.sys.country}}</p>
-<p>Temperature: {{weather.main.temp}}&deg; C</p>
-<p>Description: {{weather.weather[0].main}}</p>
+<div class='container'>
+  <h1 class="header">Weather Buddy</h1>
+  <hr>
+  <!-- <div class='wrapper'>
+    <button class="btn-local" mat-raised-button color="primary" (click)="getMyWeather()">Get Local Weather</button>
+  </div>
+  <div class='wrapper'>
+    <mat-form-field class="example-form-field">
+      <input matInput type="text" placeholder="Enter a City" [(ngModel)]="city">
+      <button mat-button *ngIf="city" matSuffix mat-icon-button aria-label="Clear" (click)="city=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)='getWeather()'>Search</button>
+  </div> -->
+  <div class='wrapper' *ngIf="show; else notShow">
+
+    <img src='{{icon}}' alt="testing">
+
+
+    <p id='city'>{{weather.name}}</p>
+
+    <p id="description">{{weather.weather[0].description}}</p>
+
+    <p id="temp">{{weather.main.temp}} &deg;C</p>
+
+    <p><button class="btn-local" mat-raised-button color="primary" (click)="searchAgain()">Search Again?</button></p>
+
+
+  </div>
+
+  <ng-template #notShow>
+      <div class='wrapper'>
+          <button class="btn-local" mat-raised-button color="primary" (click)="getMyWeather()">Get Local Weather</button>
+        </div>
+        <div class='wrapper'>
+          <mat-form-field class="example-form-field">
+            <input (keyup.enter)='getWeather()' matInput type="text" placeholder="Enter a City" [(ngModel)]="city">
+            <button mat-button *ngIf="city" matSuffix mat-icon-button aria-label="Clear" (click)="city=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="searchWeather">
+          <button mat-raised-button color="primary" (click)='getWeather()'>Search</button>
+          </div>
+        </div>
+  </ng-template>
+
+</div>
