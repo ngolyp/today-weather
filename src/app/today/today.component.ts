@@ -61,29 +61,29 @@ export class TodayComponent implements OnInit {
   }
 
 
-  public getMyWeather() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.watchPosition((success) => {
-        this.lat = success.coords.latitude;
-        this.lon = success.coords.longitude;
+  // public getMyWeather() {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.watchPosition((success) => {
+  //       this.lat = success.coords.latitude;
+  //       this.lon = success.coords.longitude;
 
-        this.weatherService.getMyWeather(this.lat, this.lon)
-          .subscribe((response) => { 
-            this.weather = response 
-            console.log(this.weather.main.temp)
-            this.weather.main.temp = Math.round(this.weather.main.temp - 273);
-            console.log(this.weather.main.temp)
-            let iconId = this.weather.weather[0].icon
-            console.log(iconId)
-            this.icon = this.getIcon(iconId);
-            console.log(this.icon)
-            this.show = true;
-          },
-            (error) => { this.errorMessage = error; console.log(this.errorMessage) }
-          )
-      })
-    }
-  }
+  //       this.weatherService.getMyWeather(this.lat, this.lon)
+  //         .subscribe((response) => { 
+  //           this.weather = response 
+  //           console.log(this.weather.main.temp)
+  //           this.weather.main.temp = Math.round(this.weather.main.temp - 273);
+  //           console.log(this.weather.main.temp)
+  //           let iconId = this.weather.weather[0].icon
+  //           console.log(iconId)
+  //           this.icon = this.getIcon(iconId);
+  //           console.log(this.icon)
+  //           this.show = true;
+  //         },
+  //           (error) => { this.errorMessage = error; console.log(this.errorMessage) }
+  //         )
+  //     })
+  //   }
+  // }
 
   public searchAgain() {
     this.show = !this.show;
