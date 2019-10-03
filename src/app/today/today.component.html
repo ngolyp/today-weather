@@ -1,6 +1,8 @@
 <div class='container'>
   <h1 class="header">Weather Buddy</h1>
+  <div class="wrapper">
   <hr>
+  </div>
   <!-- <div class='wrapper'>
     <button class="btn-local" mat-raised-button color="primary" (click)="getMyWeather()">Get Local Weather</button>
   </div>
@@ -16,8 +18,10 @@
   </div> -->
   <div class='wrapper' *ngIf="show; else notShow">
 
-    <img src='{{icon}}' alt="testing">
+    <!-- <img src='{{icon}}' alt="testing"> -->
 
+    <img src='./../../assets/img/{{icon}}.svg' alt="testing">
+    
 
     <p id='city'>{{weather.name}}</p>
 
@@ -123,7 +127,7 @@
           </g>
         </g>
       </svg>
-      <p class="hey">Hey there buddy! Why don't you search a city?</p>
+      <p class="hey">Hey buddy! Why don't you search a city?</p>
     </div>
     <div class='wrapper'>
       <mat-form-field class="example-form-field">

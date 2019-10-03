@@ -43,8 +43,9 @@ export class TodayComponent implements OnInit {
         console.log(this.weather.main.temp)
         let iconId = this.weather.weather[0].icon
         console.log(iconId)
-        this.icon = this.getIcon(iconId);
-        console.log(this.icon)
+        this.icon = iconId;
+        // this.icon = this.getIcon(iconId)
+        // console.log(this.icon)
         this.show = true;
       },
         (error) => { 
@@ -89,10 +90,10 @@ export class TodayComponent implements OnInit {
     this.show = !this.show;
   }
 
-  public getIcon(id) {
-    let iconUrl = 'http://openweathermap.org/img/wn/' + id + '@2x.png'
-    return iconUrl;
-  }
+  // public getIcon(id) {
+  //   let iconUrl = 'http://openweathermap.org/img/wn/' + id + '@2x.png'
+  //   return iconUrl;
+  // }
 
   ngOnInit() {
   }

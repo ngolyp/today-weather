@@ -1,8 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+*{
+  margin:0;
+  padding:0;
+}
+
 html,
 body {
-  height: 100%;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  /* height: 100%; */
 }
 
 body {
@@ -10,5 +18,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   /* background: linear-gradient(-45deg, #f403d1,#64b5f6); */
   background: linear-gradient(-135deg, #00d2ff 0%, #3a47d5 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
 }
